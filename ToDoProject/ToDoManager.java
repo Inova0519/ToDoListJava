@@ -7,7 +7,16 @@ import java.util.ArrayList;
 
 public class ToDoManager{
     private ArrayList<ToDo> tasks = new ArrayList<>();
+    private database db;
 
+    public ToDoManager() {
+        db = new database();
+        tasks = db.loadTasks(); 
+    }
+
+    public void saveTasks(){
+        db.saveTasks(tasks);
+    }
     public void add(Scanner scanner){
         System.out.println("\nEnter task title: ");
         String title = scanner.nextLine();
@@ -74,5 +83,6 @@ public class ToDoManager{
         Scanner scanner = new Scanner(System.in);
         SwingUtilities.invokeLater(() -> new SwingToDo(manager).createInterface());
 
+        Runtime.getRuntime().addShutdownHook(new Thread(()-> manager.saveTasks()));
     }
 }

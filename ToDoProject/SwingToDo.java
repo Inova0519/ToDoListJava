@@ -74,6 +74,7 @@ public class SwingToDo {
             boolean status = statusStr.equals("Done");
             ToDo task = new ToDo(title, desc, status);
             manager.getTasks().add(task); // Add to backend
+            manager.saveTasks();
             updateTaskList();             // Refresh GUI
             titleField.setText("");
             descriptionField.setText("");
@@ -84,6 +85,7 @@ public class SwingToDo {
             int index = taskList.getSelectedIndex();
             if (index >= 0 && index < manager.getTasks().size()) {
                 manager.getTasks().get(index).set_status(true);
+                manager.saveTasks();
                 updateTaskList();
             } else {
                 JOptionPane.showMessageDialog(frame, "Select a valid task to remove.");
@@ -95,6 +97,7 @@ public class SwingToDo {
             int index = taskList.getSelectedIndex();
             if (index >= 0 && index < manager.getTasks().size()) {
                 manager.getTasks().remove(index);
+                manager.saveTasks();
                 updateTaskList();
             } else {
                 JOptionPane.showMessageDialog(frame, "Select a valid task to remove.");
